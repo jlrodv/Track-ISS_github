@@ -79,10 +79,19 @@
         celda=[tableView dequeueReusableCellWithIdentifier:@"fecha"];
         
         NSDate *date=[NSDate dateWithTimeIntervalSince1970:[[[self.vistas objectAtIndex:indexPath.section]objectForKey:@"risetime" ]intValue]];
-        NSString *fecha=[NSDateFormatter localizedStringFromDate:date dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterShortStyle];
         
+        NSLog(@"%@", date);
+        
+        //NSString *fecha=[NSDateFormatter localizedStringFromDate:date dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterShortStyle];
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc]init];
+        [dateFormat setDateFormat:@"dd MMMM yyyy"];
+        
+        NSDateFormatter *hora = [[NSDateFormatter alloc]init];
+        [hora setDateFormat:@"hh:mm aa"];
+        
+
         UILabel *label=(UILabel *)[celda viewWithTag:1];
-        label.text=[NSString stringWithFormat:@"%@", fecha];
+        label.text=[NSString stringWithFormat:@"%@\n%@", [dateFormat stringFromDate:date],[hora stringFromDate:date]];
         
     }
     else
@@ -109,7 +118,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     if(indexPath.row==1)
-        return 88;
+        return 77;
 
     return 44;
 }
